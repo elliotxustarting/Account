@@ -7,14 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CommonUser\CommonUser.csproj" />
-    <ProjectReference Include="..\CommonPermission\CommonPermission.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Home\About.cshtml" />
     <Content Remove="Views\Home\Contact.cshtml" />
