@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonUser", "CommonUser\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonPermission", "CommonPermission\CommonPermission.csproj", "{7F5258D0-4267-4374-A3FC-0F7CBD631EBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{2EC14427-96E6-4CF0-B129-EADD1A354045}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{7F5258D0-4267-4374-A3FC-0F7CBD631EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F5258D0-4267-4374-A3FC-0F7CBD631EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F5258D0-4267-4374-A3FC-0F7CBD631EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC14427-96E6-4CF0-B129-EADD1A354045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC14427-96E6-4CF0-B129-EADD1A354045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC14427-96E6-4CF0-B129-EADD1A354045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC14427-96E6-4CF0-B129-EADD1A354045}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
