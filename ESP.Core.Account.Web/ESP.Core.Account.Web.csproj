@@ -6,12 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Npgsql" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Home\About.cshtml" />
-    <Content Remove="Views\Home\Contact.cshtml" />
-    <Content Remove="Views\Home\Privacy.cshtml" />
+    <ProjectReference Include="..\ESP.Standard.Data.PostgreSql\ESP.Standard.Data.PostgreSql.csproj" />
   </ItemGroup>
 </Project>

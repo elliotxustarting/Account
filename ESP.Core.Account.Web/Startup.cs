@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESP.Standard.Data.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Web
+namespace ESP.Core.Account.Web
 {
     public class Startup
     {
@@ -58,6 +60,10 @@ namespace Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var dbMapping = new ConcurrentDictionary<string, string>();
+            dbMapping.GetOrAdd("account", "Host=127.0.0.1;Username=postgres;Password=xuyan871206;Database=account");
+            ConnectionStringInitializer.Init(dbMapping);
         }
     }
 }

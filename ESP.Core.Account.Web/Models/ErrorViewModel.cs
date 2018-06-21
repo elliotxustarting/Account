@@ -1,6 +1,6 @@
 using System;
 
-namespace Web.Models
+namespace ESP.Core.Account.Web.Models
 {
     public class ErrorViewModel
     {
