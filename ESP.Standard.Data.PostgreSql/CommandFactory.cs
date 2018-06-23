@@ -107,9 +107,6 @@ namespace ESP.Standard.Data.PostgreSql
 
         internal static NpgsqlCommand CreateParameterizedCommand(NpgsqlConnection connection, string databaseInstanceName, string commandName)
         {
-            if (commandName.IndexOf("dbo", StringComparison.OrdinalIgnoreCase) == -1)
-                throw new NoDboException(connection.Database, commandName);
-
             NpgsqlCommand command = commandCache.GetCommandCopy(connection, databaseInstanceName, commandName);
 			return command;
 
@@ -124,9 +121,6 @@ namespace ESP.Standard.Data.PostgreSql
         /// <returns></returns>
         internal static NpgsqlCommand CreateParameterMappedCommand(NpgsqlConnection connection, string databaseInstanceName, string procedureName, ParameterMapper parameterMapper)
         {
-            if(procedureName.IndexOf("dbo",StringComparison.OrdinalIgnoreCase) == -1)
-                throw new NoDboException(connection.Database, procedureName);
-
             NpgsqlCommand command = connection.CreateCommand();
 			command.CommandText = procedureName;
 			command.CommandType = CommandType.StoredProcedure;
@@ -147,9 +141,6 @@ namespace ESP.Standard.Data.PostgreSql
         /// </summary>
         internal static NpgsqlCommand CreateParameterMappedCommand<T>(NpgsqlConnection connection, string databaseInstanceName, string procedureName, ParameterMapper<T> parameterMapper, T objectInstance)
         {
-            if (procedureName.IndexOf("dbo", StringComparison.OrdinalIgnoreCase) == -1)
-                throw new NoDboException(connection.Database, procedureName);
-
 			NpgsqlCommand command = connection.CreateCommand();
 			command.CommandText = procedureName;
 			command.CommandType = CommandType.StoredProcedure;

@@ -62,7 +62,7 @@ namespace ESP.Core.Account.Web
             });
 
             var dbMapping = new ConcurrentDictionary<string, string>();
-            dbMapping.GetOrAdd("account", "Host=127.0.0.1;Username=postgres;Password=xuyan871206;Database=account");
+            dbMapping.GetOrAdd("Account", "Host=127.0.0.1;Username=postgres;Password=xuyan871206;Database=Account");
             ConnectionStringInitializer.Init(dbMapping);
         }
     }

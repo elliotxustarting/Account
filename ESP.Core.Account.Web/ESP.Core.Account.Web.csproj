@@ -11,5 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ESP.Standard.Data.PostgreSql\ESP.Standard.Data.PostgreSql.csproj" />
+    <ProjectReference Include="..\ESP.Standard.Account.Persistence\ESP.Standard.Account.Persistence.csproj" />
   </ItemGroup>
 </Project>

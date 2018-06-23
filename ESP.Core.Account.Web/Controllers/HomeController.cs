@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ESP.Core.Account.Web.Models;
+using ESP.Standard.Account.Persistence;
 
 namespace ESP.Core.Account.Web.Controllers
 {
@@ -12,6 +13,8 @@ namespace ESP.Core.Account.Web.Controllers
     {
         public IActionResult Index()
         {
+            var dao = new UserDao();
+            var user = dao.GetUser(1, 1, 1);
             return View();
         }
 
