@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Core.Account.Web", "ESP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Account.Persistence", "ESP.Standard.Account.Persistence\ESP.Standard.Account.Persistence.csproj", "{01F3AC81-7B5F-4D73-9629-C5258D40E3A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Account.Provider", "ESP.Standard.Account.Provider\ESP.Standard.Account.Provider.csproj", "{00904DD0-5DBA-469F-878C-4228AB9E4D5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Account.Provider.Model", "ESP.Standard.Account.Provider.Model\ESP.Standard.Account.Provider.Model.csproj", "{FE693956-3724-4126-8E52-7B50772CBC15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Account.Provider.Interface", "ESP.Standard.Account.Provider.Interface\ESP.Standard.Account.Provider.Interface.csproj", "{4A99834B-5B62-4EE5-850A-5BD19D628A5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +31,17 @@ Global
 		{01F3AC81-7B5F-4D73-9629-C5258D40E3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01F3AC81-7B5F-4D73-9629-C5258D40E3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F3AC81-7B5F-4D73-9629-C5258D40E3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00904DD0-5DBA-469F-878C-4228AB9E4D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00904DD0-5DBA-469F-878C-4228AB9E4D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00904DD0-5DBA-469F-878C-4228AB9E4D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00904DD0-5DBA-469F-878C-4228AB9E4D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE693956-3724-4126-8E52-7B50772CBC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE693956-3724-4126-8E52-7B50772CBC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE693956-3724-4126-8E52-7B50772CBC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE693956-3724-4126-8E52-7B50772CBC15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

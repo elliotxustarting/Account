@@ -1,16 +1,19 @@
 ﻿using System;
 
-namespace ESP.Standard.Account.Persistence.Entity
+namespace ESP.Standard.Account.Provider.Model
 {
     /// <summary>
-    /// User entity mapping from database.
+    /// User.
     /// </summary>
     public class User
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.Model.User"/> class.
+        /// </summary>
         public User()
         {
         }
-    
+
         /// <summary>
         /// primary key
         /// </summary>
