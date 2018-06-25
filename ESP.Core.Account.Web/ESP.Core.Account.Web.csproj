@@ -12,5 +12,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ESP.Standard.Data.PostgreSql\ESP.Standard.Data.PostgreSql.csproj" />
     <ProjectReference Include="..\ESP.Standard.Account.Persistence\ESP.Standard.Account.Persistence.csproj" />
+    <ProjectReference Include="..\ESP.Standard.Account.Provider\ESP.Standard.Account.Provider.csproj" />
+    <ProjectReference Include="..\ESP.Standard.Account.Provider.Interface\ESP.Standard.Account.Provider.Interface.csproj" />
+    <ProjectReference Include="..\ESP.Standard.Account.Provider.Model\ESP.Standard.Account.Provider.Model.csproj" />
   </ItemGroup>
 </Project>

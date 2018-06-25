@@ -6,15 +6,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ESP.Core.Account.Web.Models;
 using ESP.Standard.Account.Persistence;
+using ESP.Standard.Account.Provider.Interface;
 
 namespace ESP.Core.Account.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IOrganizationProvider _organizationProvider;
+
+        private IUserProvider _userProvider;
+
+        public HomeController(IOrganizationProvider organizationProvider, IUserProvider userProvider)
+        {
+            _organizationProvider = organizationProvider;
+            _userProvider = userProvider;
+        }
+
+
         public IActionResult Index()
         {
-            var dao = new UserDao();
-            var user = dao.GetUser(1, 1, 1);
+            var user = _userProvider.GetUser(1, 1, 1);
             return View();
         }
 
