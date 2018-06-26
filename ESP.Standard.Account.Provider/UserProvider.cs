@@ -47,13 +47,18 @@ namespace ESP.Standard.Account.Provider
         /// <param name="id">Identifier.</param>
         public User GetUser(int tenantId, int operatorId, int id)
         {
-            var user = _userDao.GetUser(tenantId, operatorId, id);
-            return new User
+            User user = null;
+            var userDo = _userDao.GetUser(tenantId, operatorId, id);
+            if (userDo != null)
             {
-                Id = user.Id,
-                Name = user.Name,
-                OrgId = user.OrgId
-            };
+                user = new User
+                {
+                    Id = userDo.Id,
+                    Name = userDo.Name,
+                    OrgId = userDo.OrgId
+                };
+            }
+            return user;
         }
 
         /// <summary>

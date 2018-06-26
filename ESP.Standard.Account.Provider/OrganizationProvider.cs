@@ -47,13 +47,18 @@ namespace ESP.Standard.Account.Provider
         /// <param name="id">Identifier.</param>
         public Organization GetOrganization(int tenantId, int operatorId, int id)
         {
-            var organization = _organizationDaoDao.GetOrganization(tenantId, operatorId, id);
-            return new Organization
+            Organization organization = null;
+            var organizationDo = _organizationDaoDao.GetOrganization(tenantId, operatorId, id);
+            if (organizationDo != null)
             {
-                Id = organization.Id,
-                Name = organization.Name,
-                ParentId = organization.ParentId
-            };
+                organization = new Organization
+                {
+                    Id = organizationDo.Id,
+                    Name = organizationDo.Name,
+                    ParentId = organizationDo.ParentId
+                };
+            }
+            return organization;
         }
 
         /// <summary>
