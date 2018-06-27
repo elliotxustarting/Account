@@ -12,9 +12,9 @@ namespace ESP.Core.Account.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IOrganizationProvider _organizationProvider;
+        private readonly IOrganizationProvider _organizationProvider;
 
-        private IUserProvider _userProvider;
+        private readonly IUserProvider _userProvider;
 
         public HomeController(IOrganizationProvider organizationProvider, IUserProvider userProvider)
         {
@@ -25,7 +25,7 @@ namespace ESP.Core.Account.Web.Controllers
 
         public IActionResult Index()
         {
-            var user = _userProvider.GetUser(1, 1, 1);
+            //var user = _userProvider.GetUser(1, 1, 1);
             return View();
         }
 
