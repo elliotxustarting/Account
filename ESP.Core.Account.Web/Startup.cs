@@ -40,6 +40,10 @@ namespace ESP.Core.Account.Web
 
             services.AddTransient<IOrganizationProvider, OrganizationProvider>();
             services.AddTransient<IUserProvider, UserProvider>();
+            services.AddTransient<IRoleProvider, RoleProvider>();
+            services.AddTransient<IPermissionProvider, PermissionProvider>();
+            services.AddTransient<IElementProvider, ElementProvider>();
+            services.AddTransient<IMenuProvider, MenuProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

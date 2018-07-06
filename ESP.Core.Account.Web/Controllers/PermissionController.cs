@@ -12,5 +12,15 @@ namespace ESP.Core.Account.Web.Controllers
         {
             _permissionProvider = permissionProvider;
         }
+
+        public JsonResult Index()
+        {
+            return Json("");
+        }
+
+        public JsonResult Table()
+        {
+            return Json("");
+        }
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
 using ESP.Core.Account.Web.Models;
-using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Provider.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ESP.Core.Account.Web.Controllers
 {
@@ -21,7 +16,6 @@ namespace ESP.Core.Account.Web.Controllers
             _organizationProvider = organizationProvider;
             _userProvider = userProvider;
         }
-
 
         public IActionResult Index()
         {

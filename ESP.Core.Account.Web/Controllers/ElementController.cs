@@ -12,5 +12,15 @@ namespace ESP.Core.Account.Web.Controllers
         {
             _elementProvider = elementProvider;
         }
+
+        public JsonResult Index()
+        {
+            return Json("");
+        }
+
+        public JsonResult Table()
+        {
+            return Json("");
+        }
     }
 }
