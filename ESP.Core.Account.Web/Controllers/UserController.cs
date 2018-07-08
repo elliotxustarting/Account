@@ -19,6 +19,10 @@ namespace ESP.Core.Account.Web.Controllers
 
         public JsonResult Index()
         {
+            _userProvider.CreateUser(1, 1, new Standard.Account.Provider.Model.User
+            {
+                Name = "xuyan"
+            });
             return Json("");
         }
 

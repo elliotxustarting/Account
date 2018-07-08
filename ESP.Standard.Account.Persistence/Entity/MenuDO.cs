@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Persistence.Entity
 {
     /// <summary>
     /// Menu entity mapping from database.
     /// </summary>
-    public class MenuDO
+    public class MenuDO : BaseEntity
     {
         public MenuDO()
         {
@@ -17,7 +19,8 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// primary key
         /// </summary>
         /// <value>The identifier.</value>
-        public long Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
         /// <summary>
         /// user real name

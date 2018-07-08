@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Data.PostgreSql;
 
@@ -8,7 +9,7 @@ namespace ESP.Standard.Account.Persistence
     /// <summary>
     /// Permission DAO.
     /// </summary>
-    public class PermissionDao : AccountBaseDao
+    public class PermissionDao : BaseRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Persistence.PermissionDao"/> class.
@@ -26,14 +27,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="permission">Permission.</param>
         public int CreatePermission(int tenantId, int operatorId, PermissionDO permission)
         {
-            return (int)SafeProcedure.ExecuteScalar(Database,
-                "Proc_Permission_Create"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("name", permission.Name);
-                });
+            Execute("INSERT INTO public.permission (name) VALUES(@name)", permission);
+            return permission.Id;
         }
 
         /// <summary>
@@ -45,16 +40,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="permission">Permission.</param>
         public bool UpdatePermission(int tenantId, int operatorId, PermissionDO permission)
         {
-            SafeProcedure.ExecuteNonQuery(Database,
-                "Proc_Permission_Update"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("id", permission.Id);
-                    parameters.AddWithValue("name", permission.Name);
-                });
-            return false;
+            Execute("UPDATE public.permission SET name = @name WHERE id = @Id", permission);
+            return true;
         }
 
         /// <summary>
@@ -66,19 +53,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public PermissionDO GetPermission(int tenantId, int operatorId, int id)
         {
-            return SafeProcedure.ExecuteAndGetInstance<PermissionDO>(Database,
-                "Proc_Permission_Get_By_Id"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("id", id);
-                }
-                , (record, entity) =>
-                {
-                    entity.Id = record.Get<int>("id");
-                    entity.Name = record.Get<string>("name");
-                });
+            return Query<PermissionDO>("SELECT * FROM public.permission WHERE id = @id", new { Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -89,18 +64,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="operatorId">Operator identifier.</param>
         public IList<PermissionDO> GetPermissions(int tenantId, int operatorId)
         {
-            return SafeProcedure.ExecuteAndGetInstanceList<PermissionDO>(Database,
-                "Proc_Permission_List"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                }
-                , (record, entity) =>
-                {
-                    entity.Id = record.Get<int>("id");
-                    entity.Name = record.Get<string>("name");
-                });
+            return Query<PermissionDO>("SELECT * FROM public.permission");
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Linq;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Persistence
 {
-    public class UserDao : AccountBaseDao
+    public class UserDao : BaseRepository
     {
         public UserDao() : base("Account")
         {
@@ -19,15 +20,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="user">User.</param>
         public long CreateUser(int tenantId, int operatorId, UserDO user)
         {
-            return (long)SafeProcedure.ExecuteScalar(Database,
-                "Proc_User_Create"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("name", user.Name);
-                    parameters.AddWithValue("orgid", user.OrgId);
-                });
+            Execute("INSERT INTO public.user (name) VALUES(@name)", user);
+            return user.Id;
         }
 
         /// <summary>
@@ -39,35 +33,20 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="user">User.</param>
         public bool UpdateUser(int tenantId, int operatorId, UserDO user)
         {
-            SafeProcedure.ExecuteNonQuery(Database,
-                "Proc_User_Update"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("id", user.Id);
-                    parameters.AddWithValue("realname", user.Name);
-                    parameters.AddWithValue("pid", user.OrgId);
-                });
+            Execute("UPDATE public.user SET name = @name WHERE id = @Id", user);
             return true;
         }
 
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <returns>The user.</returns>
+        /// <param name="tenantId">Tenant identifier.</param>
+        /// <param name="operatorId">Operator identifier.</param>
+        /// <param name="id">Identifier.</param>
         public UserDO GetUser(int tenantId, int operatorId, int id)
         {
-            return SafeProcedure.ExecuteAndGetInstance<UserDO>(Database,
-                "Fun_User_Get_By_Id"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("id", id);
-                }
-                , (record, entity) =>
-                {
-                    entity.Id = record.Get<long>("id");
-                    entity.Name = record.Get<string>("realname");
-                    entity.OrgId = record.Get<long>("orgid");
-                });
+            return Query<UserDO>("SELECT * FROM public.user WHERE id = @id", new { Id = id }).FirstOrDefault();
         }
 
 

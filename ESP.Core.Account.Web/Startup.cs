@@ -35,6 +35,7 @@ namespace ESP.Core.Account.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -71,8 +72,11 @@ namespace ESP.Core.Account.Web
             });
 
             var dbMapping = new ConcurrentDictionary<string, string>();
-            dbMapping.GetOrAdd("Account", "Host=127.0.0.1;Username=postgres;Password=xuyan871206;Database=Account");
+            dbMapping.GetOrAdd("Account", "Host=127.0.0.1;Username=postgres;Password=xuyan871206;Database=account;Pooling=true");
             ConnectionStringInitializer.Init(dbMapping);
+
+
+
         }
     }
 }

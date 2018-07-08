@@ -13,6 +13,7 @@ namespace ESP.Standard.Account.Provider
     public class UserProvider : IUserProvider
     {
         private UserDao _userDao = new UserDao();
+        private AccountDao _accountDao = new AccountDao();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.UserProvider"/> class.
@@ -30,12 +31,18 @@ namespace ESP.Standard.Account.Provider
         /// <param name="user">User.</param>
         public long CreateUser(int tenantId, int operatorId, User user)
         {
-            return _userDao.CreateUser(tenantId, operatorId, new UserDO
+            _accountDao.Add(tenantId, operatorId, new AccountDO
             {
-                Id = user.Id,
-                Name = user.Name,
-                OrgId = user.OrgId
+                UserName = user.Name,
+                Password = "123456"
             });
+            return 0;
+            //return _userDao.CreateUser(tenantId, operatorId, new UserDO
+            //{
+            //    Id = user.Id,
+            //    Name = user.Name,
+            //    OrgId = user.OrgId
+            //});
         }
 
         /// <summary>

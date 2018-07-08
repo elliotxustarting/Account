@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Persistence.Entity
 {
     /// <summary>
     /// Permission do.
     /// </summary>
-    public class PermissionDO
+    public class PermissionDO : BaseEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Persistence.Entity.PermissionDO"/> class.
@@ -21,7 +23,8 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// primary key
         /// </summary>
         /// <value>The identifier.</value>
-        public long Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
         /// <summary>
         /// user real name

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using ESP.Standard.Data.PostgreSql;
+
 namespace ESP.Standard.Account.Persistence.Entity
 {
     /// <summary>
     /// Organization entity mapping from database.
     /// </summary>
-    public class OrganizationDO
+    public class OrganizationDO : BaseEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Persistence.Entity.OrganizationDO"/> class.
@@ -17,6 +20,7 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// primary key
         /// </summary>
         /// <value>The identifier.</value>
+        [Key]
         public long Id { get; set; }
 
         /// <summary>

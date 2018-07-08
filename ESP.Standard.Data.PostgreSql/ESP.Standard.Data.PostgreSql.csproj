@@ -6,8 +6,16 @@
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="Exceptions\BadDataException.cs" />
+    <Compile Remove="Exceptions\DataException.cs" />
+    <Compile Remove="Exceptions\DataNotFoundException.cs" />
+    <Compile Remove="Exceptions\SafeProcedureException.cs" />
+    <Compile Remove="Exceptions\SqlParameterException.cs" />
+    <Compile Remove="Exceptions\StandardExceptions.cs" />
+    <Compile Remove="CommandCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="4.0.0" />
+    <PackageReference Include="Dapper" Version="1.50.5" />
   </ItemGroup>
 </Project>

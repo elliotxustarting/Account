@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Persistence
 {
-    public class MenuDao : AccountBaseDao
+    public class MenuDao : BaseRepository
     {
         public MenuDao() : base("Account")
         {
@@ -21,14 +22,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="menu">Menu.</param>
         public int CreateMenu(int tenantId, int operatorId, MenuDO menu)
         {
-            return (int)SafeProcedure.ExecuteScalar(Database,
-                "Proc_Menu_Create"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("name", menu.Name);
-                });
+            Execute("INSERT INTO public.menu (name) VALUES(@name)", menu);
+            return menu.Id;
         }
 
         /// <summary>
@@ -40,16 +35,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="menu">Menu.</param>
         public bool UpdateMenu(int tenantId, int operatorId, MenuDO menu)
         {
-            SafeProcedure.ExecuteNonQuery(Database,
-                "Proc_Menu_Update"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("id", menu.Id);
-                    parameters.AddWithValue("name", menu.Name);
-                });
-            return false;
+            Execute("UPDATE public.menu SET name = @name WHERE id = @Id", menu);
+            return true;
         }
 
         /// <summary>
@@ -61,19 +48,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public MenuDO GetMenu(int tenantId, int operatorId, int id)
         {
-            return SafeProcedure.ExecuteAndGetInstance<MenuDO>(Database,
-                "Proc_Menu_Get_By_Id"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                    parameters.AddWithValue("id", id);
-                }
-                , (record, entity) =>
-                {
-                    entity.Id = record.Get<int>("id");
-                    entity.Name = record.Get<string>("name");
-                });
+            return Query<MenuDO>("SELECT * FROM public.menu WHERE id = @id", new { Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -84,18 +59,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="operatorId">Operator identifier.</param>
         public IList<MenuDO> GetMenus(int tenantId, int operatorId)
         {
-            return SafeProcedure.ExecuteAndGetInstanceList<MenuDO>(Database,
-                "Proc_Menu_List"
-                , parameters =>
-                {
-                    parameters.AddWithValue("tenantid", tenantId);
-                    parameters.AddWithValue("operatorid", operatorId);
-                }
-                , (record, entity) =>
-                {
-                    entity.Id = record.Get<int>("id");
-                    entity.Name = record.Get<string>("name");
-                });
+            return Query<MenuDO>("SELECT * FROM public.menu");
         }
     }
 }
