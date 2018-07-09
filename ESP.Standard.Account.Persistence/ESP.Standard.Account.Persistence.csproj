@@ -13,6 +13,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entity\" />
+    <Folder Include="Sql\" />
+    <Folder Include="Sql\1_seq\" />
+    <Folder Include="Sql\2_table\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Annotations">

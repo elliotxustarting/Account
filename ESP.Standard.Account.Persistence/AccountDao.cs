@@ -15,27 +15,27 @@ namespace ESP.Standard.Account.Persistence
 
         public void Add(int tenantId, int operatorId, AccountDO item)
         {
-            Execute("INSERT INTO public.account (tenantid, username, password, createdby, createdtime, updatedby, updatedtime) VALUES (@tenantid,@username,@password, @createdby, @createdtime, @updatedby, @updatedtime)", item);
+            Execute("INSERT INTO public.account (username, password, createdby, createdtime, updatedby, updatedtime) VALUES (@username,@password, @createdby, @createdtime, @updatedby, @updatedtime)", item);
         }
 
         public IEnumerable<AccountDO> FindAll(int tenantId, int operatorId)
         {
-            return Query<AccountDO>("SELECT * FROM account where tenantid=@tenantid", new { TenantId = tenantId });
+            return Query<AccountDO>("SELECT * FROM account");
         }
 
         public AccountDO FindByID(int tenantId, int operatorId,int id)
         {
-            return Query<AccountDO>("SELECT * FROM account WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
+            return Query<AccountDO>("SELECT * FROM account WHERE id = @id", new { Id = id }).FirstOrDefault();
         }
 
         public void Remove(int tenantId, int operatorId,int id)
         {
-            Execute("DELETE FROM account WHERE tenantid=@tenantid and id=@id", new { TenantId = tenantId, Id = id });
+            Execute("DELETE FROM account WHERE and id=@id", new { Id = id });
         }
 
         public void Update(int tenantId, int operatorId,AccountDO item)
         {
-            Execute("UPDATE account SET username = @username,password=@password,updatedby=@updatedby,updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", item);
+            Execute("UPDATE account SET username = @username,password=@password,updatedby=@updatedby,updatedtime=@updatedtime WHERE and id = @Id", item);
         }
     }
 }
