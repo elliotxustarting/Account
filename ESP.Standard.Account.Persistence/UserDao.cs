@@ -20,7 +20,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="user">User.</param>
         public long CreateUser(int tenantId, int operatorId, UserDO user)
         {
-            Execute("INSERT INTO public.user (name) VALUES(@name)", user);
+            Execute("INSERT INTO public.user (tenantid, accountid, realname, email, mobile, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid, @accountid, @realname, @email, @mobile, @createdby, @createdtime, @updatedby, @updatedtime)", user);
             return user.Id;
         }
 
@@ -33,7 +33,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="user">User.</param>
         public bool UpdateUser(int tenantId, int operatorId, UserDO user)
         {
-            Execute("UPDATE public.user SET name = @name WHERE id = @Id", user);
+            Execute("UPDATE public.user SET name = @name, realname=@realname, email=@email, mobile=@mobile, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid id = @Id", user);
             return true;
         }
 
@@ -46,7 +46,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public UserDO GetUser(int tenantId, int operatorId, int id)
         {
-            return Query<UserDO>("SELECT * FROM public.user WHERE id = @id", new { Id = id }).FirstOrDefault();
+            return Query<UserDO>("SELECT * FROM public.user WHERE tenantid=@tenantid id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
         }
 
 

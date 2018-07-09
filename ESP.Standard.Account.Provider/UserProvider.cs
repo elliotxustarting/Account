@@ -34,8 +34,18 @@ namespace ESP.Standard.Account.Provider
             _accountDao.Add(tenantId, operatorId, new AccountDO
             {
                 UserName = user.Name,
-                Password = "123456"
+                Password = "123456",
+                CreatedBy = 122233333,
+                CreatedTime = DateTime.Now,
+                UpdatedBy = 123123,
+                UpdatedTime = DateTime.Now
             });
+            var accounts = _accountDao.FindAll(tenantId, operatorId);
+            var account = _accountDao.FindByID(tenantId, operatorId, 1);
+            account.Password = "123456789";
+            account.UpdatedBy = 2222;
+            account.UpdatedTime = DateTime.Now;
+            _accountDao.Update(tenantId, operatorId, account);
             return 0;
             //return _userDao.CreateUser(tenantId, operatorId, new UserDO
             //{

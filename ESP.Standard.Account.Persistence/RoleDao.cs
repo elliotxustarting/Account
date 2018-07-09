@@ -14,7 +14,7 @@ namespace ESP.Standard.Account.Persistence
 
         public int CreateRole(int tenantId, int operatorId, RoleDO role)
         {
-            Execute("INSERT INTO public.role (name) VALUES(@name)", role);
+            Execute("INSERT INTO public.role (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", role);
             return role.Id;
         }
 
@@ -27,7 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="role">Org.</param>
         public bool UpdateRole(int tenantId, int operatorId, RoleDO role)
         {
-            Execute("UPDATE public.role SET name = @name WHERE id = @Id", role);
+            Execute("UPDATE public.role SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", role);
             return true;
         }
 
@@ -40,7 +40,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public RoleDO GetRole(int tenantId, int operatorId, int id)
         {
-            return Query<RoleDO>("SELECT * FROM public.role WHERE id = @id", new { Id = id }).FirstOrDefault();
+            return Query<RoleDO>("SELECT * FROM public.role WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="operatorId">Operator identifier.</param>
         public IList<RoleDO> GetRoles(int tenantId, int operatorId)
         {
-            return Query<RoleDO>("SELECT * FROM public.role");
+            return Query<RoleDO>("SELECT * FROM public.role WHERE tenantid=@tenantid", new { TenantId = tenantId });
         }
     }
 }

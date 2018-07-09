@@ -27,7 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="permission">Permission.</param>
         public int CreatePermission(int tenantId, int operatorId, PermissionDO permission)
         {
-            Execute("INSERT INTO public.permission (name) VALUES(@name)", permission);
+            Execute("INSERT INTO public.permission (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", permission);
             return permission.Id;
         }
 
@@ -40,7 +40,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="permission">Permission.</param>
         public bool UpdatePermission(int tenantId, int operatorId, PermissionDO permission)
         {
-            Execute("UPDATE public.permission SET name = @name WHERE id = @Id", permission);
+            Execute("UPDATE public.permission SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", permission);
             return true;
         }
 
@@ -53,7 +53,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public PermissionDO GetPermission(int tenantId, int operatorId, int id)
         {
-            return Query<PermissionDO>("SELECT * FROM public.permission WHERE id = @id", new { Id = id }).FirstOrDefault();
+            return Query<PermissionDO>("SELECT * FROM public.permission WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="operatorId">Operator identifier.</param>
         public IList<PermissionDO> GetPermissions(int tenantId, int operatorId)
         {
-            return Query<PermissionDO>("SELECT * FROM public.permission");
+            return Query<PermissionDO>("SELECT * FROM public.permission where tenantid=@tenantid", new { TenantId = tenantId });
         }
     }
 }

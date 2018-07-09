@@ -27,7 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="element">Element.</param>
         public int CreateElement(int tenantId, int operatorId, ElementDO element)
         {
-            Execute("INSERT INTO public.element (name) VALUES(@name)", element);
+            Execute("INSERT INTO public.element (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid, @name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", element);
             return element.Id;
         }
 
@@ -40,7 +40,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="element">Element.</param>
         public bool UpdateElement(int tenantId, int operatorId, ElementDO element)
         {
-            Execute("UPDATE public.element SET name = @name WHERE id = @Id", element);
+            Execute("UPDATE public.element SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", element);
             return true;
         }
 
@@ -53,7 +53,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public ElementDO GetElement(int tenantId, int operatorId, int id)
         {
-            return Query<ElementDO>("SELECT * FROM public.element WHERE id = @id", new { Id = id }).FirstOrDefault();
+            return Query<ElementDO>("SELECT * FROM public.element WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="operatorId">Operator identifier.</param>
         public IList<ElementDO> GetElements(int tenantId, int operatorId)
         {
-            return Query<ElementDO>("SELECT * FROM public.element");
+            return Query<ElementDO>("SELECT * FROM public.element where tenantid=@tenantid", new { TenantId = tenantId });
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="menu">Menu.</param>
         public int CreateMenu(int tenantId, int operatorId, MenuDO menu)
         {
-            Execute("INSERT INTO public.menu (name) VALUES(@name)", menu);
+            Execute("INSERT INTO public.menu (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", menu);
             return menu.Id;
         }
 
@@ -35,7 +35,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="menu">Menu.</param>
         public bool UpdateMenu(int tenantId, int operatorId, MenuDO menu)
         {
-            Execute("UPDATE public.menu SET name = @name WHERE id = @Id", menu);
+            Execute("UPDATE public.menu SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", menu);
             return true;
         }
 
@@ -48,7 +48,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public MenuDO GetMenu(int tenantId, int operatorId, int id)
         {
-            return Query<MenuDO>("SELECT * FROM public.menu WHERE id = @id", new { Id = id }).FirstOrDefault();
+            return Query<MenuDO>("SELECT * FROM public.menu WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="operatorId">Operator identifier.</param>
         public IList<MenuDO> GetMenus(int tenantId, int operatorId)
         {
-            return Query<MenuDO>("SELECT * FROM public.menu");
+            return Query<MenuDO>("SELECT * FROM public.menu where tenantid=@tenantid", new { TenantId = tenantId });
         }
     }
 }

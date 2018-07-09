@@ -27,7 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="org">Org.</param>
         public long CreateOrganization(int tenantId, int operatorId, OrganizationDO org)
         {
-            Execute("INSERT INTO public.organization (name) VALUES(@name)", org);
+            Execute("INSERT INTO public.organization (tenantid, name, parentid, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name,@parentid, @description, @createdby, @createdtime, @updatedby, @updatedtime)", org);
             return org.Id;
         }
 
@@ -40,7 +40,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="org">Org.</param>
         public bool UpdateOrganization(int tenantId, int operatorId, OrganizationDO org)
         {
-            Execute("UPDATE public.organization SET name = @name WHERE id = @Id", org);
+            Execute("UPDATE public.organization SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", org);
             return true;
         }
 
@@ -53,7 +53,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public OrganizationDO GetOrganization(int tenantId, int operatorId, int id)
         {
-            return Query<OrganizationDO>("SELECT * FROM public.organization WHERE id = @id", new { Id = id }).FirstOrDefault();
+            return Query<OrganizationDO>("SELECT * FROM public.organization WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="pId">P identifier.</param>
         public IList<OrganizationDO> GetOrganizationsByLevel(int tenantId, int operatorId, int pId)
         {
-            return Query<OrganizationDO>("SELECT * FROM public.organization");
+            return Query<OrganizationDO>("SELECT * FROM public.organization where tenantid=@tenantid", new { TenantId = tenantId });
         }
     }
 }

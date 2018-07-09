@@ -29,11 +29,17 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// <value>The name.</value>
         public string Name { get; set; }
 
-
         /// <summary>
         /// belong to orinazation
         /// </summary>
         /// <value>The org identifier.</value>
         public long OrgId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
+
     }
 }
