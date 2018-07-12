@@ -1,4 +1,5 @@
 ﻿using System;
+using ESP.Core.Account.Web.Models.User;
 using ESP.Standard.Account.Provider.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +27,20 @@ namespace ESP.Core.Account.Web.Controllers
             return Json("");
         }
 
-        public JsonResult Table()
+        [HttpGet]
+        public JsonResult Search(UserSearchParameter parameter)
+        {
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult Create(UserVM user)
+        {
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult Update(UserVM user)
         {
             return Json("");
         }

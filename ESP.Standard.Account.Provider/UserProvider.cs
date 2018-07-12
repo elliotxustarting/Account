@@ -4,6 +4,7 @@ using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider
 {
@@ -31,21 +32,21 @@ namespace ESP.Standard.Account.Provider
         /// <param name="user">User.</param>
         public long CreateUser(int tenantId, int operatorId, User user)
         {
-            _accountDao.Add(tenantId, operatorId, new AccountDO
-            {
-                UserName = user.Name,
-                Password = "123456",
-                CreatedBy = 122233333,
-                CreatedTime = DateTime.Now,
-                UpdatedBy = 123123,
-                UpdatedTime = DateTime.Now
-            });
-            var accounts = _accountDao.FindAll(tenantId, operatorId);
-            var account = _accountDao.FindByID(tenantId, operatorId, 1);
+            //var id = _accountDao.CreateAccount(tenantId, operatorId, new AccountDO
+            //{
+            //    UserName = user.Name,
+            //    Password = "123456",
+            //    CreatedBy = 122233333,
+            //    CreatedTime = DateTime.Now,
+            //    UpdatedBy = 123123,
+            //    UpdatedTime = DateTime.Now
+            //});
+            var accounts = _accountDao.SearchAccount(tenantId, operatorId, new PagingObject { PageIndex = 1, PageSize = 10 }, new List<SortedField> { new SortedField { Field = "username", Direction = SortedDirection.ASC } });
+            var account = _accountDao.GetAccount(tenantId, operatorId, 1);
             account.Password = "123456789";
             account.UpdatedBy = 2222;
             account.UpdatedTime = DateTime.Now;
-            _accountDao.Update(tenantId, operatorId, account);
+            _accountDao.UpdateAccount(tenantId, operatorId, account);
             return 0;
             //return _userDao.CreateUser(tenantId, operatorId, new UserDO
             //{

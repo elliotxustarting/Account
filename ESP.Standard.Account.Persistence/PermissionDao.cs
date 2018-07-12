@@ -27,8 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="permission">Permission.</param>
         public int CreatePermission(int tenantId, int operatorId, PermissionDO permission)
         {
-            Execute("INSERT INTO public.permission (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", permission);
-            return permission.Id;
+            return ExecuteScalar("INSERT INTO public.permission (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", permission);
         }
 
         /// <summary>

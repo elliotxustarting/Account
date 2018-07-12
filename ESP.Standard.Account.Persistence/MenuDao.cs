@@ -22,8 +22,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="menu">Menu.</param>
         public int CreateMenu(int tenantId, int operatorId, MenuDO menu)
         {
-            Execute("INSERT INTO public.menu (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", menu);
-            return menu.Id;
+            return ExecuteScalar("INSERT INTO public.menu (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", menu);
         }
 
         /// <summary>

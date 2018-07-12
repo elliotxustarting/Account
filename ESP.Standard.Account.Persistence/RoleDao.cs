@@ -14,8 +14,7 @@ namespace ESP.Standard.Account.Persistence
 
         public int CreateRole(int tenantId, int operatorId, RoleDO role)
         {
-            Execute("INSERT INTO public.role (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", role);
-            return role.Id;
+            return ExecuteScalar("INSERT INTO public.role (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", role);
         }
 
         /// <summary>

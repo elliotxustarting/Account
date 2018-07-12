@@ -39,6 +39,28 @@ namespace ESP.Standard.Data.PostgreSql
             }
         }
 
+        protected int ExecuteScalar(string sql, object param)
+        {
+            var result = 0;
+            using (var dbConnection = GetConnection())
+            {
+                dbConnection.Open();
+                result = dbConnection.ExecuteScalar<int>(sql, param);
+            }
+            return result;
+        }
+
+        protected T ExecuteScalar<T>(string sql, object param)
+        {
+            T result;
+            using (var dbConnection = GetConnection())
+            {
+                dbConnection.Open();
+                result = dbConnection.ExecuteScalar<T>(sql, param);
+            }
+            return result;
+        }
+
         protected List<T> Query<T>(string sql)
         {
             var result = new List<T>();

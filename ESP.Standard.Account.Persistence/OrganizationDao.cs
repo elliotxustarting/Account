@@ -27,8 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="org">Org.</param>
         public long CreateOrganization(int tenantId, int operatorId, OrganizationDO org)
         {
-            Execute("INSERT INTO public.organization (tenantid, name, parentid, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name,@parentid, @description, @createdby, @createdtime, @updatedby, @updatedtime)", org);
-            return org.Id;
+            return ExecuteScalar<long>("INSERT INTO public.organization (tenantid, name, parentid, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name,@parentid, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", org);
         }
 
         /// <summary>

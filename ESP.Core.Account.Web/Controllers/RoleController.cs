@@ -1,4 +1,5 @@
 ﻿using System;
+using ESP.Core.Account.Web.Models.Role;
 using ESP.Standard.Account.Provider.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,17 +14,20 @@ namespace ESP.Core.Account.Web.Controllers
             _roleProvider = roleProvider;
         }
 
-        public JsonResult Create()
+        [HttpGet]
+        public JsonResult Search(RoleSearchParameter parameter)
         {
             return Json("");
         }
 
-        public JsonResult Index()
+        [HttpPost]
+        public JsonResult Create(RoleVM role)
         {
             return Json("");
         }
 
-        public JsonResult Table()
+        [HttpPost]
+        public JsonResult Update(RoleVM role)
         {
             return Json("");
         }

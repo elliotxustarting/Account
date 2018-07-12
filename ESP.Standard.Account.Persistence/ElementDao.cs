@@ -27,8 +27,7 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="element">Element.</param>
         public int CreateElement(int tenantId, int operatorId, ElementDO element)
         {
-            Execute("INSERT INTO public.element (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid, @name, @description, @createdby, @createdtime, @updatedby, @updatedtime)", element);
-            return element.Id;
+            return ExecuteScalar("INSERT INTO public.element (tenantid, name, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid, @name, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", element);
         }
 
         /// <summary>

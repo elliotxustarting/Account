@@ -25,4 +25,11 @@
     <Content Remove="wwwroot\js\site.js" />
     <Content Remove="wwwroot\js\site.min.js" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\User\" />
+    <Folder Include="Models\Role\" />
+    <Folder Include="Models\Oraganization\" />
+    <Folder Include="Models\Menu\" />
+    <Folder Include="Models\Permission\" />
+  </ItemGroup>
 </Project>

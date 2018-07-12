@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ESP.Core.Account.Web.Models.Oraganization;
 using ESP.Standard.Account.Provider.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,12 +18,20 @@ namespace ESP.Core.Account.Web.Controllers
             _userProvider = userProvider;
         }
 
-        public JsonResult Index()
+        [HttpGet]
+        public JsonResult Search(OraganizationSearchParameter parameter)
         {
             return Json("");
         }
 
-        public JsonResult Table()
+        [HttpPost]
+        public JsonResult Create(OraganizationVM organization)
+        {
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult Update(OraganizationVM organization)
         {
             return Json("");
         }
