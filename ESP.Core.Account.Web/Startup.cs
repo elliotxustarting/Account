@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Provider;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Data.PostgreSql;
@@ -45,6 +46,9 @@ namespace ESP.Core.Account.Web
             services.AddTransient<IPermissionProvider, PermissionProvider>();
             services.AddTransient<IElementProvider, ElementProvider>();
             services.AddTransient<IMenuProvider, MenuProvider>();
+
+            services.AddTransient<UserDao, UserDao>();
+            services.AddTransient<AccountDao, AccountDao>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

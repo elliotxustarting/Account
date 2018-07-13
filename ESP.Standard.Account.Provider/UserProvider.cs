@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
+using ESP.Standard.Account.Provider.Code;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
 using ESP.Standard.Data.PostgreSql;
@@ -14,14 +15,16 @@ namespace ESP.Standard.Account.Provider
     /// </summary>
     public class UserProvider : IUserProvider
     {
-        private UserDao _userDao = new UserDao();
-        private AccountDao _accountDao = new AccountDao();
+        private UserDao _userDao;
+        private AccountDao _accountDao;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.UserProvider"/> class.
         /// </summary>
-        public UserProvider()
+        public UserProvider(UserDao userDao, AccountDao accountDao)
         {
+            _userDao = userDao;
+            _accountDao = accountDao;
         }
 
         public void Register(int tenantId, int operatorId, User user)
@@ -36,12 +39,30 @@ namespace ESP.Standard.Account.Provider
             }
         }
 
-        public void ChangePassword(int tenantId, int operatorId, string username, string password, string newpassword)
+        public void ChangePassword(int tenantId, int operatorId, string username, string password, string newpassword, string checkcode)
         {
             if (password != newpassword)
             {
 
             }
+        }
+
+        public bool Login(int tenantId, int operatorId, string username, string password, string checkcode, out string errorcode)
+        {
+            errorcode = null;
+            var account = _accountDao.GetAccount(tenantId, operatorId, username);
+            if (account == null)
+            {
+                errorcode = LoginCode.UserNameNotExist;
+                return false;
+            }
+
+            if (account.Password != password)
+            {
+                errorcode = LoginCode.AccountNotMatch;
+                return false;
+            }
+            return true;
         }
 
         /// <summary>

@@ -11,6 +11,18 @@ namespace ESP.Standard.Account.Provider.Interface
     public interface IUserProvider
     {
         /// <summary>
+        /// Login the specified tenantId, operatorId, username, password, checkcode and errorcode.
+        /// </summary>
+        /// <returns>The login.</returns>
+        /// <param name="tenantId">Tenant identifier.</param>
+        /// <param name="operatorId">Operator identifier.</param>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
+        /// <param name="checkcode">Checkcode.</param>
+        /// <param name="errorcode">Errorcode.</param>
+        bool Login(int tenantId, int operatorId, string username, string password, string checkcode, out string errorcode);
+
+        /// <summary>
         /// Creates the user.
         /// </summary>
         /// <returns>The user.</returns>

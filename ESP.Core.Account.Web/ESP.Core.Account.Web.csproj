@@ -31,5 +31,7 @@
     <Folder Include="Models\Oraganization\" />
     <Folder Include="Models\Menu\" />
     <Folder Include="Models\Permission\" />
+    <Folder Include="Models\Login\" />
+    <Folder Include="Filter\" />
   </ItemGroup>
 </Project>

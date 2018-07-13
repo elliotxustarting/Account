@@ -13,4 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="4.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Code\" />
+  </ItemGroup>
 </Project>

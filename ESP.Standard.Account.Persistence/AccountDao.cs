@@ -37,6 +37,10 @@ namespace ESP.Standard.Account.Persistence
             return Query<AccountDO>("SELECT * FROM account WHERE id = @id", new { Id = id }).FirstOrDefault();
         }
 
+        public AccountDO GetAccount(int tenantId, int operatorId, string username)
+        {
+            return Query<AccountDO>("SELECT * FROM account WHERE username = @username", new { username = username }).FirstOrDefault();
+        }
 
         public void UpdateAccount(int tenantId, int operatorId,AccountDO item)
         {
