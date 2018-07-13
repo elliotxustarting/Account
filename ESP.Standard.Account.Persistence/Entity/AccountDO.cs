@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Persistence.Entity
@@ -30,13 +31,5 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// <value>The password.</value>
         [Required]
         public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        public string Description { get; set; }
-
-
     }
 }

@@ -5,6 +5,7 @@ using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider
 {
@@ -45,9 +46,9 @@ namespace ESP.Standard.Account.Provider
             return role;
         }
 
-        public IList<Role> GetRoles(int tenantId, int operatorId)
+        public IList<Role> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _roleDao.GetRoles(tenantId, operatorId).Select(r => new Role
+            return _roleDao.GetRoles(tenantId, operatorId,paging,sortedFields).Select(r => new Role
             {
                 Id = r.Id,
                 Name = r.Name

@@ -61,9 +61,15 @@ namespace ESP.Standard.Account.Persistence
         /// <returns>The permissions.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        public IList<PermissionDO> GetPermissions(int tenantId, int operatorId)
+        public IList<PermissionDO> GetPermissions(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return Query<PermissionDO>("SELECT * FROM public.permission where tenantid=@tenantid", new { TenantId = tenantId });
+            var sql = "SELECT * FROM public.permission WHERE tenantid=@tenantid";
+            sql = sql.Sort(sortedFields);
+            if (paging != null)
+            {
+                sql = sql.Paging(paging);
+            }
+            return Query<PermissionDO>(sql, new { TenantId = tenantId });
         }
     }
 }

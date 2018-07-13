@@ -27,7 +27,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="org">Org.</param>
         public long CreateOrganization(int tenantId, int operatorId, OrganizationDO org)
         {
-            return ExecuteScalar<long>("INSERT INTO public.organization (tenantid, name, parentid, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name,@parentid, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", org);
+            var sql = "INSERT INTO public.organization (tenantid, name, parentid, description, createdby, createdtime, updatedby, updatedtime) VALUES(@tenantid,@name,@parentid, @description, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id";
+            return ExecuteScalar<long>(sql, org);
         }
 
         /// <summary>
@@ -39,7 +40,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="org">Org.</param>
         public bool UpdateOrganization(int tenantId, int operatorId, OrganizationDO org)
         {
-            Execute("UPDATE public.organization SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id", org);
+            var sql = "UPDATE public.organization SET name = @name, updatedby=@updatedby, updatedtime=@updatedtime WHERE tenantid=@tenantid and id = @Id";
+            Execute(sql, org);
             return true;
         }
 
@@ -52,7 +54,8 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public OrganizationDO GetOrganization(int tenantId, int operatorId, int id)
         {
-            return Query<OrganizationDO>("SELECT * FROM public.organization WHERE tenantid=@tenantid and id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
+            var sql = "SELECT * FROM public.organization WHERE tenantid=@tenantid and id = @id";
+            return Query<OrganizationDO>(sql, new { tenantId, id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -62,9 +65,15 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
         /// <param name="pId">P identifier.</param>
-        public IList<OrganizationDO> GetOrganizationsByLevel(int tenantId, int operatorId, int pId)
+        public IList<OrganizationDO> GetOrganizationsByLevel(int tenantId, int operatorId, int pId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return Query<OrganizationDO>("SELECT * FROM public.organization where tenantid=@tenantid", new { TenantId = tenantId });
+            var sql = "SELECT * FROM public.organization where tenantid=@tenantid and parentid=@pid";
+            sql = sql.Sort(sortedFields);
+            if (paging != null)
+            {
+                sql = sql.Paging(paging);
+            }
+            return Query<OrganizationDO>(sql, new { tenantId, pId });
         }
     }
 }

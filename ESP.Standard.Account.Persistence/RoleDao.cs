@@ -48,9 +48,15 @@ namespace ESP.Standard.Account.Persistence
         /// <returns>The roles.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        public IList<RoleDO> GetRoles(int tenantId, int operatorId)
+        public IList<RoleDO> GetRoles(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return Query<RoleDO>("SELECT * FROM public.role WHERE tenantid=@tenantid", new { TenantId = tenantId });
+            var sql = "SELECT * FROM public.role WHERE tenantid=@tenantid";
+            sql = sql.Sort(sortedFields);
+            if (paging != null)
+            {
+                sql = sql.Paging(paging);
+            }
+            return Query<RoleDO>(sql, new { TenantId = tenantId });
         }
     }
 }

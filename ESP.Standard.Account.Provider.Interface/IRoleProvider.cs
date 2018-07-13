@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider.Interface
 {
@@ -12,6 +13,6 @@ namespace ESP.Standard.Account.Provider.Interface
 
         Role GetRole(int tenantId, int operatorId, int id);
 
-        IList<Role> GetRoles(int tenantId, int operatorId);
+        IList<Role> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields);
     }
 }

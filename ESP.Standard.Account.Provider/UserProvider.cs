@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
@@ -87,9 +88,13 @@ namespace ESP.Standard.Account.Provider
         /// <param name="operatorId">Operator identifier.</param>
         /// <param name="pageIndex">Page index.</param>
         /// <param name="pageSize">Page size.</param>
-        public IList<User> ListByPage(int tenantId, int operatorId, int pageIndex, int pageSize)
+        public IList<User> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return new List<User>();
+            return _userDao.SearchUser(tenantId, operatorId, paging, sortedFields).Select(user => new User
+            {
+                Id = user.Id,
+                Name = user.Name
+            }).ToList();
         }
 
         /// <summary>

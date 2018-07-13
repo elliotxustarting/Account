@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider.Interface
 {
@@ -43,6 +44,6 @@ namespace ESP.Standard.Account.Provider.Interface
         /// <param name="operatorId">Operator identifier.</param>
         /// <param name="pageIndex">Page index.</param>
         /// <param name="pageSize">Page size.</param>
-        IList<User> ListByPage(int tenantId, int operatorId, int pageIndex, int pageSize);
+        IList<User> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields);
     }
 }

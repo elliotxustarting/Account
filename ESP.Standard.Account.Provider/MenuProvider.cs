@@ -5,6 +5,7 @@ using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider
 {
@@ -61,9 +62,9 @@ namespace ESP.Standard.Account.Provider
         /// <returns>The menus.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        public IList<Menu> GetMenus(int tenantId, int operatorId)
+        public IList<Menu> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _menuDao.GetMenus(tenantId, operatorId).Select(menu => new Menu
+            return _menuDao.GetMenus(tenantId, operatorId, paging, sortedFields).Select(menu => new Menu
             {
                 Id = menu.Id,
                 Name = menu.Name

@@ -5,6 +5,7 @@ using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider
 {
@@ -61,9 +62,9 @@ namespace ESP.Standard.Account.Provider
         /// <returns>The permissions.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        public IList<Permission> GetPermissions(int tenantId, int operatorId)
+        public IList<Permission> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _permissionDao.GetPermissions(tenantId, operatorId).Select(permission => new Permission
+            return _permissionDao.GetPermissions(tenantId, operatorId, paging, sortedFields).Select(permission => new Permission
             {
                 Id = permission.Id,
                 Name = permission.Name

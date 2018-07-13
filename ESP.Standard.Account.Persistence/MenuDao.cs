@@ -56,9 +56,15 @@ namespace ESP.Standard.Account.Persistence
         /// <returns>The menus.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        public IList<MenuDO> GetMenus(int tenantId, int operatorId)
+        public IList<MenuDO> GetMenus(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return Query<MenuDO>("SELECT * FROM public.menu where tenantid=@tenantid", new { TenantId = tenantId });
+            var sql = "SELECT * FROM public.menu WHERE tenantid=@tenantid";
+            sql = sql.Sort(sortedFields);
+            if (paging != null)
+            {
+                sql = sql.Paging(paging);
+            }
+            return Query<MenuDO>(sql, new { tenantId });
         }
     }
 }

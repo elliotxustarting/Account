@@ -61,9 +61,15 @@ namespace ESP.Standard.Account.Persistence
         /// <returns>The elements.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        public IList<ElementDO> GetElements(int tenantId, int operatorId)
+        public IList<ElementDO> GetElements(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return Query<ElementDO>("SELECT * FROM public.element where tenantid=@tenantid", new { TenantId = tenantId });
+            var sql = "SELECT * FROM public.element WHERE tenantid=@tenantid";
+            sql = sql.Sort(sortedFields);
+            if (paging != null)
+            {
+                sql = sql.Paging(paging);
+            }
+            return Query<ElementDO>(sql, new { tenantId });
         }
     }
 }

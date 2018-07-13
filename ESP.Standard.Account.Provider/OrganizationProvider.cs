@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
+using ESP.Standard.Data.PostgreSql;
 
 namespace ESP.Standard.Account.Provider
 {
@@ -69,9 +71,14 @@ namespace ESP.Standard.Account.Provider
         /// <param name="operatorId">Operator identifier.</param>
         /// <param name="pageIndex">Page index.</param>
         /// <param name="pageSize">Page size.</param>
-        public IList<Organization> ListByPage(int tenantId, int operatorId, int pageIndex, int pageSize)
+        public IList<Organization> Search(int tenantId, int operatorId, int pId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return new List<Organization>();
+            return _organizationDaoDao.GetOrganizationsByLevel(tenantId, operatorId, pId, paging, sortedFields).Select(org => new Organization
+            {
+                Id = org.Id,
+                Name = org.Name,
+                ParentId = org.ParentId
+            }).ToList();
         }
 
         /// <summary>
