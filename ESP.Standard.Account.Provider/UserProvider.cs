@@ -24,6 +24,26 @@ namespace ESP.Standard.Account.Provider
         {
         }
 
+        public void Register(int tenantId, int operatorId, User user)
+        {
+            foreach(var account in user.Accounts)
+            {
+                account.CreatedBy = operatorId;
+                account.CreatedTime = DateTime.Now;
+                account.UpdatedBy = operatorId;
+                account.UpdatedTime = DateTime.Now;
+                _accountDao.CreateAccount(tenantId, operatorId, account.ToDataObject());
+            }
+        }
+
+        public void ChangePassword(int tenantId, int operatorId, string username, string password, string newpassword)
+        {
+            if (password != newpassword)
+            {
+
+            }
+        }
+
         /// <summary>
         /// Creates the user.
         /// </summary>
@@ -33,28 +53,12 @@ namespace ESP.Standard.Account.Provider
         /// <param name="user">User.</param>
         public long CreateUser(int tenantId, int operatorId, User user)
         {
-            //var id = _accountDao.CreateAccount(tenantId, operatorId, new AccountDO
-            //{
-            //    UserName = user.Name,
-            //    Password = "123456",
-            //    CreatedBy = 122233333,
-            //    CreatedTime = DateTime.Now,
-            //    UpdatedBy = 123123,
-            //    UpdatedTime = DateTime.Now
-            //});
-            var accounts = _accountDao.SearchAccount(tenantId, operatorId, new PagingObject { PageIndex = 1, PageSize = 10 }, new List<SortedField> { new SortedField { Field = "username", Direction = SortedDirection.ASC } });
-            var account = _accountDao.GetAccount(tenantId, operatorId, 1);
-            account.Password = "123456789";
-            account.UpdatedBy = 2222;
-            account.UpdatedTime = DateTime.Now;
-            _accountDao.UpdateAccount(tenantId, operatorId, account);
-            return 0;
-            //return _userDao.CreateUser(tenantId, operatorId, new UserDO
-            //{
-            //    Id = user.Id,
-            //    Name = user.Name,
-            //    OrgId = user.OrgId
-            //});
+            user.CreatedBy = operatorId;
+            user.CreatedTime = DateTime.Now;
+            user.UpdatedBy = operatorId;
+            user.UpdatedTime = DateTime.Now;
+            var entity = user.ToDataObject();
+            return _userDao.CreateUser(tenantId, operatorId, entity);
         }
 
         /// <summary>
@@ -70,12 +74,7 @@ namespace ESP.Standard.Account.Provider
             var userDo = _userDao.GetUser(tenantId, operatorId, id);
             if (userDo != null)
             {
-                user = new User
-                {
-                    Id = userDo.Id,
-                    Name = userDo.Name,
-                    OrgId = userDo.OrgId
-                };
+                user = userDo.ToBusinessObject();
             }
             return user;
         }
@@ -90,11 +89,7 @@ namespace ESP.Standard.Account.Provider
         /// <param name="pageSize">Page size.</param>
         public IList<User> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _userDao.SearchUser(tenantId, operatorId, paging, sortedFields).Select(user => new User
-            {
-                Id = user.Id,
-                Name = user.Name
-            }).ToList();
+            return _userDao.SearchUser(tenantId, operatorId, paging, sortedFields).Select(user => user.ToBusinessObject()).ToList();
         }
 
         /// <summary>
@@ -105,12 +100,10 @@ namespace ESP.Standard.Account.Provider
         /// <param name="user">User.</param>
         public void UpdateUser(int tenantId, int operatorId, User user)
         {
-            _userDao.UpdateUser(tenantId, operatorId, new UserDO
-            {
-                Id = user.Id,
-                Name = user.Name,
-                OrgId = user.OrgId
-            });
+            user.UpdatedBy = operatorId;
+            user.UpdatedTime = DateTime.Now;
+            var entity = user.ToDataObject();
+            _userDao.UpdateUser(tenantId, operatorId, entity);
         }
     }
 }

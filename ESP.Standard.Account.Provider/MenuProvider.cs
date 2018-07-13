@@ -32,11 +32,12 @@ namespace ESP.Standard.Account.Provider
         /// <param name="menu">Menu.</param>
         public int CreateMenu(int tenantId, int operatorId, Menu menu)
         {
-            return _menuDao.CreateMenu(tenantId, operatorId, new MenuDO
-            {
-                Id = menu.Id,
-                Name = menu.Name
-            });
+            menu.CreatedBy = operatorId;
+            menu.CreatedTime = DateTime.Now;
+            menu.UpdatedBy = operatorId;
+            menu.UpdatedTime = DateTime.Now;
+            var entity = menu.ToDataObject();
+            return _menuDao.CreateMenu(tenantId, operatorId, entity);
         }
 
         /// <summary>
@@ -48,12 +49,13 @@ namespace ESP.Standard.Account.Provider
         /// <param name="id">Identifier.</param>
         public Menu GetMenu(int tenantId, int operatorId, int id)
         {
-            var menu = _menuDao.GetMenu(tenantId, operatorId, id);
-            return new Menu
+            Menu menu = null;
+            var menuDo = _menuDao.GetMenu(tenantId, operatorId, id);
+            if (menuDo != null)
             {
-                Id = menu.Id,
-                Name = menu.Name
-            };
+                menu = menuDo.ToBusinessObject();
+            }
+            return menu;
         }
 
         /// <summary>
@@ -64,11 +66,7 @@ namespace ESP.Standard.Account.Provider
         /// <param name="operatorId">Operator identifier.</param>
         public IList<Menu> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _menuDao.GetMenus(tenantId, operatorId, paging, sortedFields).Select(menu => new Menu
-            {
-                Id = menu.Id,
-                Name = menu.Name
-            }).ToList();
+            return _menuDao.GetMenus(tenantId, operatorId, paging, sortedFields).Select(menu => menu.ToBusinessObject()).ToList();
         }
 
         /// <summary>
@@ -79,11 +77,8 @@ namespace ESP.Standard.Account.Provider
         /// <param name="menu">Menu.</param>
         public void UpdateMenu(int tenantId, int operatorId, Menu menu)
         {
-            _menuDao.UpdateMenu(tenantId, operatorId, new MenuDO
-            {
-                Id = menu.Id,
-                Name = menu.Name
-            });
+            var entity = menu.ToDataObject();
+            _menuDao.UpdateMenu(tenantId, operatorId, entity);
         }
     }
 }

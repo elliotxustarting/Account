@@ -22,7 +22,7 @@ namespace ESP.Core.Account.Web.Controllers
         {
             _userProvider.CreateUser(1, 1, new Standard.Account.Provider.Model.User
             {
-                Name = "xuyan"
+                RealName = "xuyan"
             });
             return Json("");
         }

@@ -32,11 +32,12 @@ namespace ESP.Standard.Account.Provider
         /// <param name="permission">Permission.</param>
         public int CreatePermission(int tenantId, int operatorId, Permission permission)
         {
-            return _permissionDao.CreatePermission(tenantId, operatorId, new PermissionDO
-            {
-                Id = permission.Id,
-                Name = permission.Name
-            });
+            permission.CreatedBy = operatorId;
+            permission.CreatedTime = DateTime.Now;
+            permission.UpdatedBy = operatorId;
+            permission.UpdatedTime = DateTime.Now;
+            var entity = permission.ToDataObject();
+            return _permissionDao.CreatePermission(tenantId, operatorId, entity);
         }
 
         /// <summary>
@@ -48,12 +49,13 @@ namespace ESP.Standard.Account.Provider
         /// <param name="id">Identifier.</param>
         public Permission GetPermission(int tenantId, int operatorId, int id)
         {
-            var permission = _permissionDao.GetPermission(tenantId, operatorId, id);
-            return new Permission
+            Permission permission = null;
+            var permissionDo = _permissionDao.GetPermission(tenantId, operatorId, id);
+            if(permissionDo!=null)
             {
-                Id = permission.Id,
-                Name = permission.Name
-            };
+                permission = permissionDo.ToBusinessObject();
+            }
+            return permission;
         }
 
         /// <summary>
@@ -64,11 +66,7 @@ namespace ESP.Standard.Account.Provider
         /// <param name="operatorId">Operator identifier.</param>
         public IList<Permission> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _permissionDao.GetPermissions(tenantId, operatorId, paging, sortedFields).Select(permission => new Permission
-            {
-                Id = permission.Id,
-                Name = permission.Name
-            }).ToList();
+            return _permissionDao.GetPermissions(tenantId, operatorId, paging, sortedFields).Select(permission => permission.ToBusinessObject()).ToList();
         }
 
         /// <summary>
@@ -79,11 +77,10 @@ namespace ESP.Standard.Account.Provider
         /// <param name="permission">Permission.</param>
         public void UpdatePermission(int tenantId, int operatorId, Permission permission)
         {
-            _permissionDao.UpdatePermission(tenantId, operatorId, new PermissionDO
-            {
-                Id = permission.Id,
-                Name = permission.Name
-            });
+            permission.UpdatedBy = operatorId;
+            permission.UpdatedTime = DateTime.Now;
+            var entity = permission.ToDataObject();
+            _permissionDao.UpdatePermission(tenantId, operatorId, entity);
         }
     }
 }

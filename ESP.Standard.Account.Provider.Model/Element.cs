@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
 namespace ESP.Standard.Account.Provider.Model
 {
     /// <summary>
     /// Element.
     /// </summary>
-    public class Element
+    public class Element : DataModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.Model.Element"/> class.
@@ -27,6 +26,12 @@ namespace ESP.Standard.Account.Provider.Model
         /// </summary>
         /// <value>The name.</value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the permissions.

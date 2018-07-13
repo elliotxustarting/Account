@@ -6,7 +6,7 @@ namespace ESP.Standard.Account.Provider.Model
     /// <summary>
     /// Menu.
     /// </summary>
-    public class Menu
+    public class Menu: DataModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.Model.Menu"/> class.
@@ -27,6 +27,12 @@ namespace ESP.Standard.Account.Provider.Model
         /// </summary>
         /// <value>The name.</value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the permissions.

@@ -27,19 +27,30 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// user real name
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get; set; }
+        public string RealName { get; set; }
 
         /// <summary>
-        /// belong to orinazation
+        /// Gets or sets the email.
         /// </summary>
-        /// <value>The org identifier.</value>
-        public long OrgId { get; set; }
+        /// <value>The email.</value>
+        public string Email { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        /// Gets or sets the mobile.
         /// </summary>
-        /// <value>The description.</value>
-        public string Description { get; set; }
+        /// <value>The mobile.</value>
+        public string Mobile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the we chat.
+        /// </summary>
+        /// <value>The we chat.</value>
+        public string WeChat { get; set; }
+
+        /// <summary>
+        /// Gets or sets the qq.
+        /// </summary>
+        /// <value>The qq.</value>
+        public string QQ { get; set; }
     }
 }

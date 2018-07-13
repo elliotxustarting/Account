@@ -4,4 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ESP.Standard.Data.PostgreSql\ESP.Standard.Data.PostgreSql.csproj" />
+  </ItemGroup>
 </Project>

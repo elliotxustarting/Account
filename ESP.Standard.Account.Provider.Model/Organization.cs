@@ -1,10 +1,11 @@
 ﻿using System;
+
 namespace ESP.Standard.Account.Provider.Model
 {
     /// <summary>
     /// Organization.
     /// </summary>
-    public class Organization
+    public class Organization: DataModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.Model.Organization"/> class.
@@ -24,6 +25,12 @@ namespace ESP.Standard.Account.Provider.Model
         /// </summary>
         /// <value>The name.</value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
 
         /// <summary>
         /// Parent Id

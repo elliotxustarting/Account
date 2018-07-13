@@ -112,10 +112,11 @@ CREATE TABLE public."user"
 (
     id bigint NOT NULL DEFAULT nextval('user_id_seq'::regclass),
     tenantid integer NOT NULL,
-    accountid bigint,
     realname character varying(50) COLLATE pg_catalog."default" NOT NULL,
     email character varying(50) COLLATE pg_catalog."default",
     mobile character varying(20) COLLATE pg_catalog."default",
+    qq character varying(20) COLLATE pg_catalog."default",
+    wechat character varying(50) COLLATE pg_catalog."default",
     createdby bigint,
     createdtime timestamp with time zone,
     updatedby bigint,

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESP.Standard.Account.Persistence;
-using ESP.Standard.Account.Persistence.Entity;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Account.Provider.Model;
 using ESP.Standard.Data.PostgreSql;
@@ -32,11 +31,12 @@ namespace ESP.Standard.Account.Provider
         /// <param name="element">Element.</param>
         public int CreateElement(int tenantId, int operatorId, Element element)
         {
-            return _elementDao.CreateElement(tenantId, operatorId, new ElementDO
-            {
-                Id = element.Id,
-                Name = element.Name
-            });
+            element.CreatedBy = operatorId;
+            element.CreatedTime = DateTime.Now;
+            element.UpdatedBy = operatorId;
+            element.UpdatedTime = DateTime.Now;
+            var entity = element.ToDataObject();
+            return _elementDao.CreateElement(tenantId, operatorId, entity);
         }
 
         /// <summary>
@@ -48,12 +48,13 @@ namespace ESP.Standard.Account.Provider
         /// <param name="id">Identifier.</param>
         public Element GetElement(int tenantId, int operatorId, int id)
         {
-            var element = _elementDao.GetElement(tenantId, operatorId, id);
-            return new Element
+            Element element = null;
+            var elementDo = _elementDao.GetElement(tenantId, operatorId, id);
+            if (elementDo != null)
             {
-                Id = element.Id,
-                Name = element.Name
-            };
+                element = elementDo.ToBusinessObject();
+            }
+            return element;
         }
 
         /// <summary>
@@ -64,11 +65,7 @@ namespace ESP.Standard.Account.Provider
         /// <param name="operatorId">Operator identifier.</param>
         public IList<Element> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _elementDao.GetElements(tenantId, operatorId, paging, sortedFields).Select(e => new Element
-            {
-                Id = e.Id,
-                Name = e.Name
-            }).ToList();
+            return _elementDao.GetElements(tenantId, operatorId, paging, sortedFields).Select(element => element.ToBusinessObject()).ToList();
         }
 
         /// <summary>
@@ -79,11 +76,10 @@ namespace ESP.Standard.Account.Provider
         /// <param name="element">Element.</param>
         public void UpdateElement(int tenantId, int operatorId, Element element)
         {
-            _elementDao.UpdateElement(tenantId, operatorId, new ElementDO
-            {
-                Id = element.Id,
-                Name = element.Name
-            });
+            element.UpdatedBy = operatorId;
+            element.UpdatedTime = DateTime.Now;
+            var entity = element.ToDataObject();
+            _elementDao.UpdateElement(tenantId, operatorId, entity);
         }
     }
 }

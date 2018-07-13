@@ -32,12 +32,12 @@ namespace ESP.Standard.Account.Provider
         /// <param name="organization">Organization.</param>
         public long CreateOrganization(int tenantId, int operatorId, Organization organization)
         {
-            return _organizationDaoDao.CreateOrganization(tenantId, operatorId, new OrganizationDO
-            {
-                Id = organization.Id,
-                Name = organization.Name,
-                ParentId = organization.ParentId
-            });
+            organization.CreatedBy = operatorId;
+            organization.CreatedTime = DateTime.Now;
+            organization.UpdatedBy = operatorId;
+            organization.UpdatedTime = DateTime.Now;
+            var entity = organization.ToDataObject();
+            return _organizationDaoDao.CreateOrganization(tenantId, operatorId, entity);
         }
 
         /// <summary>
@@ -53,32 +53,23 @@ namespace ESP.Standard.Account.Provider
             var organizationDo = _organizationDaoDao.GetOrganization(tenantId, operatorId, id);
             if (organizationDo != null)
             {
-                organization = new Organization
-                {
-                    Id = organizationDo.Id,
-                    Name = organizationDo.Name,
-                    ParentId = organizationDo.ParentId
-                };
+                organization = organizationDo.ToBusinessObject();
             }
             return organization;
         }
 
         /// <summary>
-        /// Lists the by page.
+        /// Search the specified tenantId, operatorId, pId, paging and sortedFields.
         /// </summary>
-        /// <returns>The by page.</returns>
+        /// <returns>The search.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        /// <param name="pageIndex">Page index.</param>
-        /// <param name="pageSize">Page size.</param>
+        /// <param name="pId">P identifier.</param>
+        /// <param name="paging">Paging.</param>
+        /// <param name="sortedFields">Sorted fields.</param>
         public IList<Organization> Search(int tenantId, int operatorId, int pId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _organizationDaoDao.GetOrganizationsByLevel(tenantId, operatorId, pId, paging, sortedFields).Select(org => new Organization
-            {
-                Id = org.Id,
-                Name = org.Name,
-                ParentId = org.ParentId
-            }).ToList();
+            return _organizationDaoDao.GetOrganizationsByLevel(tenantId, operatorId, pId, paging, sortedFields).Select(org => org.ToBusinessObject()).ToList();
         }
 
         /// <summary>
@@ -89,12 +80,10 @@ namespace ESP.Standard.Account.Provider
         /// <param name="organization">User.</param>
         public void UpdateOrganization(int tenantId, int operatorId, Organization organization)
         {
-            _organizationDaoDao.UpdateOrganization(tenantId, operatorId, new OrganizationDO
-            {
-                Id = organization.Id,
-                Name = organization.Name,
-                ParentId = organization.ParentId
-            });
+            organization.UpdatedBy = operatorId;
+            organization.UpdatedTime = DateTime.Now;
+            var entity = organization.ToDataObject();
+            _organizationDaoDao.UpdateOrganization(tenantId, operatorId, entity);
         }
     }
 }
