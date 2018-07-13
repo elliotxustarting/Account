@@ -101,13 +101,31 @@ namespace ESP.Standard.Account.Provider
         }
 
         /// <summary>
-        /// Lists the by page.
+        /// Gets the user.
         /// </summary>
-        /// <returns>The by page.</returns>
+        /// <returns>The user.</returns>
         /// <param name="tenantId">Tenant identifier.</param>
         /// <param name="operatorId">Operator identifier.</param>
-        /// <param name="pageIndex">Page index.</param>
-        /// <param name="pageSize">Page size.</param>
+        /// <param name="username">Username.</param>
+        public User GetUser(int tenantId, int operatorId, string username)
+        {
+            User user = null;
+            var userDo = _userDao.GetUser(tenantId, operatorId, username);
+            if (userDo != null)
+            {
+                user = userDo.ToBusinessObject();
+            }
+            return user;
+        }
+
+        /// <summary>
+        /// Search the specified tenantId, operatorId, paging and sortedFields.
+        /// </summary>
+        /// <returns>The search.</returns>
+        /// <param name="tenantId">Tenant identifier.</param>
+        /// <param name="operatorId">Operator identifier.</param>
+        /// <param name="paging">Paging.</param>
+        /// <param name="sortedFields">Sorted fields.</param>
         public IList<User> Search(int tenantId, int operatorId, PagingObject paging, List<SortedField> sortedFields)
         {
             return _userDao.SearchUser(tenantId, operatorId, paging, sortedFields).Select(user => user.ToBusinessObject()).ToList();

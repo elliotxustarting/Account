@@ -130,3 +130,19 @@ TABLESPACE pg_default;
 
 ALTER TABLE public."user"
     OWNER to postgres;
+
+
+
+CREATE TABLE public.rel_user_account
+(
+    userid bigint NOT NULL,
+    accountid bigint NOT NULL,
+    CONSTRAINT rel_user_account_pkey PRIMARY KEY (userid, accountid)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.rel_user_account
+    OWNER to postgres;

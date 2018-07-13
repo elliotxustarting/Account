@@ -49,6 +49,15 @@ namespace ESP.Standard.Account.Provider.Interface
         User GetUser(int tenantId, int operatorId, int id);
 
         /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <returns>The user.</returns>
+        /// <param name="tenantId">Tenant identifier.</param>
+        /// <param name="operatorId">Operator identifier.</param>
+        /// <param name="username">Username.</param>
+        User GetUser(int tenantId, int operatorId , string username);
+
+        /// <summary>
         /// Lists the by page.
         /// </summary>
         /// <returns>The by page.</returns>

@@ -46,7 +46,19 @@ namespace ESP.Standard.Account.Persistence
         /// <param name="id">Identifier.</param>
         public UserDO GetUser(int tenantId, int operatorId, int id)
         {
-            return Query<UserDO>("SELECT * FROM public.user WHERE tenantid=@tenantid AND id = @id", new { TenantId = tenantId, Id = id }).FirstOrDefault();
+            return Query<UserDO>("SELECT * FROM public.user WHERE tenantid=@tenantid AND id = @id", new { tenantId, id }).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <returns>The user.</returns>
+        /// <param name="tenantId">Tenant identifier.</param>
+        /// <param name="operatorId">Operator identifier.</param>
+        /// <param name="username">Username.</param>
+        public UserDO GetUser(int tenantId, int operatorId, string username)
+        {
+            return Query<UserDO>("SELECT u.* FROM public.user u  LEFT JOIN rel_user_account rel on u.id = rel.userid LEFT JOIN account a on rel.accountid = a.id WHERE u.tenantid = @tenantid AND a.username = @username", new { tenantId, username }).FirstOrDefault();
         }
 
         /// <summary>

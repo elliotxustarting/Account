@@ -7,6 +7,7 @@ using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Provider;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Data.PostgreSql;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,12 @@ namespace ESP.Core.Account.Web
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/login");
+                options.AccessDeniedPath = new PathString("/*");
             });
 
             services.AddSingleton<IConfiguration>(Configuration);
@@ -67,6 +74,7 @@ namespace ESP.Core.Account.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
