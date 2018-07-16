@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using ESP.Core.Account.Web.Models;
 using ESP.Standard.Account.Provider.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESP.Core.Account.Web.Controllers

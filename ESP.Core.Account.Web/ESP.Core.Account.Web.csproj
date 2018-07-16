@@ -33,5 +33,6 @@
     <Folder Include="Models\Permission\" />
     <Folder Include="Models\Login\" />
     <Folder Include="Filter\" />
+    <Folder Include="Permission\" />
   </ItemGroup>
 </Project>

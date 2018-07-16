@@ -26,6 +26,15 @@ namespace ESP.Core.Account.Web.Controllers
             _userProvider = userProvider;
         }
 
+        [AllowAnonymous]
+        [RestApi]
+        [HttpGet]
+        public JsonResult Index()
+        {
+            return Json("");
+        }
+
+        [AllowAnonymous]
         [RestApi]
         [HttpPost]
         public async Task<JsonResult> Login(LoginParameter parameter)

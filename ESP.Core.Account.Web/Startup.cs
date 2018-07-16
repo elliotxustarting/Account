@@ -3,16 +3,19 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESP.Core.Account.Web.Permission;
 using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Provider;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Data.PostgreSql;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,8 +42,17 @@ namespace ESP.Core.Account.Web
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = new PathString("/login");
+                options.LoginPath = new PathString("/login/index");
                 options.AccessDeniedPath = new PathString("/*");
+                options.Cookie.Domain = ".domain.dev";
+                options.Cookie.Name = "sso";
+                options.Cookie.Path = "/";
+            });
+
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
             });
 
             services.AddSingleton<IConfiguration>(Configuration);
