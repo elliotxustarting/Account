@@ -16,6 +16,7 @@
     <ProjectReference Include="..\ESP.Standard.Account.Provider\ESP.Standard.Account.Provider.csproj" />
     <ProjectReference Include="..\ESP.Standard.Account.Provider.Interface\ESP.Standard.Account.Provider.Interface.csproj" />
     <ProjectReference Include="..\ESP.Standard.Account.Provider.Model\ESP.Standard.Account.Provider.Model.csproj" />
+    <ProjectReference Include="..\ESP.Standard.Infrastructure\ESP.Standard.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Home\About.cshtml" />

@@ -8,6 +8,7 @@ using ESP.Standard.Account.Persistence;
 using ESP.Standard.Account.Provider;
 using ESP.Standard.Account.Provider.Interface;
 using ESP.Standard.Data.PostgreSql;
+using ESP.Standard.Infrastructure.Install;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -59,16 +60,18 @@ namespace ESP.Core.Account.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddTransient<IOrganizationProvider, OrganizationProvider>();
-            services.AddTransient<IUserProvider, UserProvider>();
-            services.AddTransient<IRoleProvider, RoleProvider>();
-            services.AddTransient<IPermissionProvider, PermissionProvider>();
-            services.AddTransient<IElementProvider, ElementProvider>();
-            services.AddTransient<IMenuProvider, MenuProvider>();
 
-            services.AddTransient<UserDao, UserDao>();
-            services.AddTransient<AccountDao, AccountDao>();
-            services.AddTransient<OrganizationDao, OrganizationDao>();
+            services.Install();
+            //services.AddTransient<IOrganizationProvider, OrganizationProvider>();
+            //services.AddTransient<IUserProvider, UserProvider>();
+            //services.AddTransient<IRoleProvider, RoleProvider>();
+            //services.AddTransient<IPermissionProvider, PermissionProvider>();
+            //services.AddTransient<IElementProvider, ElementProvider>();
+            //services.AddTransient<IMenuProvider, MenuProvider>();
+
+            //services.AddTransient<UserDao, UserDao>();
+            //services.AddTransient<AccountDao, AccountDao>();
+            //services.AddTransient<OrganizationDao, OrganizationDao>();
 
         }
 

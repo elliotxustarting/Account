@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Account.Provid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Account.Provider.Interface", "ESP.Standard.Account.Provider.Interface\ESP.Standard.Account.Provider.Interface.csproj", "{4A99834B-5B62-4EE5-850A-5BD19D628A5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESP.Standard.Infrastructure", "ESP.Standard.Infrastructure\ESP.Standard.Infrastructure.csproj", "{C48353E9-44F0-46C0-BBC2-3A1F734190C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,9 @@ Global
 		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A99834B-5B62-4EE5-850A-5BD19D628A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C48353E9-44F0-46C0-BBC2-3A1F734190C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C48353E9-44F0-46C0-BBC2-3A1F734190C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C48353E9-44F0-46C0-BBC2-3A1F734190C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C48353E9-44F0-46C0-BBC2-3A1F734190C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

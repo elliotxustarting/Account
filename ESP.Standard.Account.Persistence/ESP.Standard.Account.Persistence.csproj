@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ESP.Standard.Data.PostgreSql\ESP.Standard.Data.PostgreSql.csproj" />
+    <ProjectReference Include="..\ESP.Standard.Infrastructure\ESP.Standard.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="4.0.0" />
@@ -16,6 +17,7 @@
     <Folder Include="Sql\" />
     <Folder Include="Sql\1_seq\" />
     <Folder Include="Sql\2_table\" />
+    <Folder Include="Install\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Annotations">
