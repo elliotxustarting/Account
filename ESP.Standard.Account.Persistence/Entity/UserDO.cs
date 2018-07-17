@@ -21,7 +21,7 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// </summary>
         /// <value>The identifier.</value>
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// user real name

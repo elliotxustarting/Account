@@ -13,7 +13,7 @@ namespace ESP.Standard.Account.Persistence
         {
         }
 
-        public int CreateAccount(int tenantId, int operatorId, AccountDO item)
+        public int CreateAccount(AccountDO item)
         {
             return ExecuteScalar("INSERT INTO public.account (username, password, createdby, createdtime, updatedby, updatedtime) VALUES (@username,@password, @createdby, @createdtime, @updatedby, @updatedtime) RETURNING id", item);
         }
@@ -32,17 +32,28 @@ namespace ESP.Standard.Account.Persistence
             });
         }
 
-        public AccountDO GetAccount(int tenantId, int operatorId, int id)
+        public AccountDO GetAccount(int id)
         {
             return Query<AccountDO>("SELECT * FROM account WHERE id = @id", new { Id = id }).FirstOrDefault();
         }
 
-        public AccountDO GetAccount(int tenantId, int operatorId, string username)
+        public AccountDO GetAccount(string username)
         {
-            return Query<AccountDO>("SELECT * FROM account WHERE username = @username", new { username = username }).FirstOrDefault();
+            var sql = "SELECT a.id, a.username, a.password, a.createdby, a.createdtime, a.updatedby, a.updatedtime, " +
+                "u.id as userid, u.* " +
+                "FROM public.account a  LEFT JOIN rel_user_account rel on a.id = rel.accountid LEFT JOIN public.user u on rel.userid = u.id " +
+                "WHERE a.username = @username";
+            return Query<AccountDO, UserDO>(sql,(account, user) => 
+            {
+                if (user != null && user.Id > 0)
+                {
+                    account.User = user;
+                }
+                return account;
+            }, "userid", new { username }).FirstOrDefault();
         }
 
-        public void UpdateAccount(int tenantId, int operatorId,AccountDO item)
+        public void UpdateAccount(AccountDO item)
         {
             Execute("UPDATE account SET username = @username,password=@password,updatedby=@updatedby,updatedtime=@updatedtime WHERE id = @Id", item);
         }

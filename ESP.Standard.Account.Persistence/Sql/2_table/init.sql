@@ -1,11 +1,11 @@
 ﻿CREATE TABLE public.account
 (
-    id bigint NOT NULL DEFAULT nextval('account_id_seq'::regclass),
+    id integer NOT NULL DEFAULT nextval('account_id_seq'::regclass),
     username character varying(50) COLLATE pg_catalog."default" NOT NULL,
     password character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    createdby bigint,
+    createdby integer,
     createdtime timestamp with time zone,
-    updatedby bigint,
+    updatedby integer,
     updatedtime timestamp with time zone,
     CONSTRAINT account_pkey PRIMARY KEY (id)
 )
@@ -25,9 +25,9 @@ CREATE TABLE public.menu
     tenantid integer NOT NULL,
     name character varying(50) COLLATE pg_catalog."default" NOT NULL,
     description character varying(200) COLLATE pg_catalog."default",
-    createdby bigint,
+    createdby integer,
     createdtime timestamp with time zone,
-    updatedby bigint,
+    updatedby integer,
     updatedtime timestamp with time zone,
     CONSTRAINT menu_pkey PRIMARY KEY (id)
 )
@@ -43,14 +43,14 @@ ALTER TABLE public.menu
 
 CREATE TABLE public.organization
 (
-    id bigint NOT NULL DEFAULT nextval('organization_id_seq'::regclass),
+    id integer NOT NULL DEFAULT nextval('organization_id_seq'::regclass),
     tenantid integer NOT NULL,
     name character varying(50) COLLATE pg_catalog."default" NOT NULL,
     description character varying(200) COLLATE pg_catalog."default",
-    parentid bigint,
-    createdby bigint,
+    parentid integer,
+    createdby integer,
     createdtime timestamp with time zone,
-    updatedby bigint,
+    updatedby integer,
     updatedtime timestamp with time zone,
     CONSTRAINT organization_pkey PRIMARY KEY (id)
 )
@@ -70,9 +70,9 @@ CREATE TABLE public.permission
     tenantid integer NOT NULL,
     name character varying(50) COLLATE pg_catalog."default" NOT NULL,
     description character varying(200) COLLATE pg_catalog."default",
-    createdby bigint,
+    createdby integer,
     createdtime timestamp with time zone,
-    updatedby bigint,
+    updatedby integer,
     updatedtime timestamp with time zone,
     CONSTRAINT permission_pkey PRIMARY KEY (id)
 )
@@ -92,9 +92,9 @@ CREATE TABLE public.role
     tenantid integer NOT NULL,
     name character varying(50) COLLATE pg_catalog."default" NOT NULL,
     description character varying(200) COLLATE pg_catalog."default",
-    createdby bigint,
+    createdby integer,
     createdtime timestamp with time zone,
-    updatedby bigint,
+    updatedby integer,
     updatedtime timestamp with time zone,
     CONSTRAINT role_pkey PRIMARY KEY (id)
 )
@@ -110,16 +110,16 @@ ALTER TABLE public.role
 
 CREATE TABLE public."user"
 (
-    id bigint NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+    id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
     tenantid integer NOT NULL,
     realname character varying(50) COLLATE pg_catalog."default" NOT NULL,
     email character varying(50) COLLATE pg_catalog."default",
     mobile character varying(20) COLLATE pg_catalog."default",
     qq character varying(20) COLLATE pg_catalog."default",
     wechat character varying(50) COLLATE pg_catalog."default",
-    createdby bigint,
+    createdby integer,
     createdtime timestamp with time zone,
-    updatedby bigint,
+    updatedby integer,
     updatedtime timestamp with time zone,
     CONSTRAINT user_pkey PRIMARY KEY (id)
 )
@@ -135,8 +135,8 @@ ALTER TABLE public."user"
 
 CREATE TABLE public.rel_user_account
 (
-    userid bigint NOT NULL,
-    accountid bigint NOT NULL,
+    userid integer NOT NULL,
+    accountid integer NOT NULL,
     CONSTRAINT rel_user_account_pkey PRIMARY KEY (userid, accountid)
 )
 WITH (

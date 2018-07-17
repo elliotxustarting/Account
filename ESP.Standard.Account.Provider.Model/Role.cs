@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ESP.Standard.Account.Provider.Model
 {
     /// <summary>
@@ -11,6 +13,7 @@ namespace ESP.Standard.Account.Provider.Model
         /// </summary>
         public Role()
         {
+            Permissions = new List<Permission>();
         }
 
         /// <summary>
@@ -30,6 +33,8 @@ namespace ESP.Standard.Account.Provider.Model
         /// </summary>
         /// <value>The description.</value>
         public string Description { get; set; }
+
+        public List<Permission> Permissions { get; set; }
 
     }
 }

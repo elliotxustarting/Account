@@ -20,7 +20,7 @@ namespace ESP.Standard.Account.Provider.Interface
         /// <param name="password">Password.</param>
         /// <param name="checkcode">Checkcode.</param>
         /// <param name="errorcode">Errorcode.</param>
-        bool Login(int tenantId, int operatorId, string username, string password, string checkcode, out string errorcode);
+        User Login(string username, string password, string checkcode, out string errorcode);
 
         /// <summary>
         /// Creates the user.

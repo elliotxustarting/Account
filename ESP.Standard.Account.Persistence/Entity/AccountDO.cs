@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ESP.Standard.Data.PostgreSql;
@@ -16,7 +17,7 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// </summary>
         /// <value>The identifier.</value>
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user.
@@ -29,5 +30,11 @@ namespace ESP.Standard.Account.Persistence.Entity
         /// </summary>
         /// <value>The password.</value>
         public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user.
+        /// </summary>
+        /// <value>The users.</value>
+        public UserDO User { get; set; }
     }
 }

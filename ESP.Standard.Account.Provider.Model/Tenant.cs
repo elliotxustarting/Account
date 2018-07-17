@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ESP.Standard.Account.Provider.Model
 {
-    public class TenantModel
+    public class Tenant
     {
         /// <summary>
         /// Gets or sets the tenant identifier.

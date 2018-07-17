@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using ESP.Standard.Data.PostgreSql;
+
 namespace ESP.Core.Account.Web.Models
 {
     public class SearchParameter
@@ -7,8 +10,8 @@ namespace ESP.Core.Account.Web.Models
 
         public int PageSize { get; set; }
 
-        public string SortField { get; set; }
+        public PagingObject Paging { get; set; }
 
-        public SortEnum Sort { get; set; }
+        public List<SortedField> SortedFields { get; set; }
     }
 }

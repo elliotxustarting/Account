@@ -82,5 +82,16 @@ namespace ESP.Standard.Data.PostgreSql
             }
             return result;
         }
+
+        protected List<TResult> Query<TResult, TSub>(string sql, Func<TResult, TSub, TResult> func, string splitOn, object param)
+        {
+            var result = new List<TResult>();
+            using (var dbConnection = GetConnection())
+            {
+                dbConnection.Open();
+                result = dbConnection.Query(sql, func, param, null, true, splitOn, null, null).ToList();
+            }
+            return result;
+        }
     }
 }

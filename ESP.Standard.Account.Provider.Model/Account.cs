@@ -7,7 +7,7 @@ namespace ESP.Standard.Account.Provider.Model
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user.
@@ -25,7 +25,7 @@ namespace ESP.Standard.Account.Provider.Model
         /// Gets or sets the created by.
         /// </summary>
         /// <value>The created by.</value>
-        public long CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the created time.
@@ -37,7 +37,7 @@ namespace ESP.Standard.Account.Provider.Model
         /// Gets or sets the updated by.
         /// </summary>
         /// <value>The updated by.</value>
-        public long UpdatedBy { get; set; }
+        public int UpdatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the updated time.

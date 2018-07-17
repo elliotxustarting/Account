@@ -14,13 +14,14 @@ namespace ESP.Standard.Account.Provider
     /// </summary>
     public class OrganizationProvider : IOrganizationProvider
     {
-        private OrganizationDao _organizationDaoDao = new OrganizationDao();
+        private OrganizationDao _organizationDao = new OrganizationDao();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ESP.Standard.Account.Provider.OrganizationProvider"/> class.
         /// </summary>
-        public OrganizationProvider()
+        public OrganizationProvider(OrganizationDao organizationDaoDao)
         {
+            _organizationDao = organizationDaoDao;
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace ESP.Standard.Account.Provider
             organization.UpdatedBy = operatorId;
             organization.UpdatedTime = DateTime.Now;
             var entity = organization.ToDataObject();
-            return _organizationDaoDao.CreateOrganization(tenantId, operatorId, entity);
+            return _organizationDao.CreateOrganization(tenantId, operatorId, entity);
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace ESP.Standard.Account.Provider
         public Organization GetOrganization(int tenantId, int operatorId, int id)
         {
             Organization organization = null;
-            var organizationDo = _organizationDaoDao.GetOrganization(tenantId, operatorId, id);
+            var organizationDo = _organizationDao.GetOrganization(tenantId, operatorId, id);
             if (organizationDo != null)
             {
                 organization = organizationDo.ToBusinessObject();
@@ -69,7 +70,7 @@ namespace ESP.Standard.Account.Provider
         /// <param name="sortedFields">Sorted fields.</param>
         public IList<Organization> Search(int tenantId, int operatorId, int pId, PagingObject paging, List<SortedField> sortedFields)
         {
-            return _organizationDaoDao.GetOrganizationsByLevel(tenantId, operatorId, pId, paging, sortedFields).Select(org => org.ToBusinessObject()).ToList();
+            return _organizationDao.GetOrganizationsByLevel(tenantId, operatorId, pId, paging, sortedFields).Select(org => org.ToBusinessObject()).ToList();
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace ESP.Standard.Account.Provider
             organization.UpdatedBy = operatorId;
             organization.UpdatedTime = DateTime.Now;
             var entity = organization.ToDataObject();
-            _organizationDaoDao.UpdateOrganization(tenantId, operatorId, entity);
+            _organizationDao.UpdateOrganization(tenantId, operatorId, entity);
         }
     }
 }

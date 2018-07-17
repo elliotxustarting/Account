@@ -68,6 +68,8 @@ namespace ESP.Core.Account.Web
 
             services.AddTransient<UserDao, UserDao>();
             services.AddTransient<AccountDao, AccountDao>();
+            services.AddTransient<OrganizationDao, OrganizationDao>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

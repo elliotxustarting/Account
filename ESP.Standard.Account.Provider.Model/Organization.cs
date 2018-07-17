@@ -18,7 +18,7 @@ namespace ESP.Standard.Account.Provider.Model
         /// primary key
         /// </summary>
         /// <value>The identifier.</value>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// user real name
@@ -36,6 +36,6 @@ namespace ESP.Standard.Account.Provider.Model
         /// Parent Id
         /// </summary>
         /// <value>The identifier.</value>
-        public long ParentId { get; set; }
+        public int ParentId { get; set; }
     }
 }

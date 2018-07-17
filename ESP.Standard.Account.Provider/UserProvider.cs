@@ -35,7 +35,7 @@ namespace ESP.Standard.Account.Provider
                 account.CreatedTime = DateTime.Now;
                 account.UpdatedBy = operatorId;
                 account.UpdatedTime = DateTime.Now;
-                _accountDao.CreateAccount(tenantId, operatorId, account.ToDataObject());
+                _accountDao.CreateAccount( account.ToDataObject());
             }
         }
 
@@ -47,22 +47,29 @@ namespace ESP.Standard.Account.Provider
             }
         }
 
-        public bool Login(int tenantId, int operatorId, string username, string password, string checkcode, out string errorcode)
+        public User Login(string username, string password, string checkcode, out string errorcode)
         {
             errorcode = null;
-            var account = _accountDao.GetAccount(tenantId, operatorId, username);
+            var account = _accountDao.GetAccount(username);
             if (account == null)
             {
                 errorcode = LoginCode.UserNameNotExist;
-                return false;
             }
 
             if (account.Password != password)
             {
                 errorcode = LoginCode.AccountNotMatch;
-                return false;
             }
-            return true;
+
+            User user = null;
+            if(string.IsNullOrEmpty(errorcode))
+            {
+                if(account.User !=null)
+                {
+                    user = account.User.ToBusinessObject();
+                }
+            }
+            return user;
         }
 
         /// <summary>
